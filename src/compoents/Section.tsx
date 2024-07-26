@@ -1,4 +1,8 @@
 import styled from "styled-components";
+import { useMatching } from "../hooks/useMatching";
+import Item from "./Item";
+import SelectLevel from "./SelectLevel";
+import Answer from "./Answer";
 
 const SectionContainer = styled.section`
   border: 1px solid black;
@@ -12,8 +16,15 @@ const SectionContainer = styled.section`
   gap: 1rem;
 `;
 
-const MainSection = ({ children }: { children: React.ReactNode }) => {
-  return <SectionContainer>{children}</SectionContainer>;
+const MainSection = () => {
+  const { screen, level } = useMatching();
+  return (
+    <SectionContainer>
+      {screen === 0 && <SelectLevel />}
+      {screen === 1 && <Item ea={level} />}
+      {screen === 1 && <Answer />}
+    </SectionContainer>
+  );
 };
 
 export default MainSection;

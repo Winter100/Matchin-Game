@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useMatching } from "./hooks/useMatching";
+import { useMatching } from "../hooks/useMatching";
 
 const Container = styled.div`
   border: 1px solid black;
@@ -24,7 +24,7 @@ const Button = styled.button`
 `;
 
 const SelectLevel = () => {
-  const { level, increase, decrease } = useMatching();
+  const { level, increase, decrease, setScreen } = useMatching();
   return (
     <Container>
       <P>난이도를 선택해주세요</P>
@@ -33,6 +33,7 @@ const SelectLevel = () => {
         <P>{level}</P>
         <Button onClick={increase}>+</Button>
       </BtnBox>
+      <Button onClick={() => setScreen(1)}>확인</Button>
     </Container>
   );
 };
