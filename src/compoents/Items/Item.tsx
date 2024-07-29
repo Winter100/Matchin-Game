@@ -1,5 +1,6 @@
 import { useRef, useState } from "react";
 import styled from "styled-components";
+import setLevel from "../../util/setLevel";
 
 const ItemContainer = styled.div`
   border: 1px solid black;
@@ -16,8 +17,10 @@ const Character = styled.p`
   height: 50px;
 `;
 
-const Item = ({ ea = 5 }: { ea: number }) => {
-  const [length, setLength] = useState(() => [...Array(ea).keys()]);
+const Item = ({ level = "nomal" }: { level: string }) => {
+  const [length, setLength] = useState(() => [
+    ...Array(setLevel(level)).keys(),
+  ]);
   const dropItem = useRef(0);
 
   const onDragStart = (index: number) => {

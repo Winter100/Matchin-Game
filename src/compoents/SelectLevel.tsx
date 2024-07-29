@@ -1,39 +1,49 @@
 import styled from "styled-components";
 import { useMatching } from "../hooks/useMatching";
 
-const Container = styled.div`
-  border: 1px solid black;
-`;
+const Container = styled.div``;
 
 const BtnBox = styled.div`
-  border: 1px solid black;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+  margin-top: 1rem;
   gap: 1rem;
 `;
 
-const P = styled.p`
+const H2 = styled.h2`
   margin: auto;
   text-align: center;
 `;
 
 const Button = styled.button`
-  width: 100px;
-  height: 100px;
+  cursor: pointer;
+  background-color: #ffe9e9;
+  border-radius: 25rem;
+  border: none;
+  width: 200px;
+  height: 50px;
 `;
 
 const SelectLevel = () => {
-  const { level, increase, decrease, setScreen } = useMatching();
+  const { dispatch } = useMatching();
+
   return (
     <Container>
-      <P>난이도를 선택해주세요</P>
+      <H2>난이도를 선택해주세요</H2>
       <BtnBox>
-        <Button onClick={decrease}>-</Button>
-        <P>{level}</P>
-        <Button onClick={increase}>+</Button>
+        <Button
+          onClick={() => dispatch({ type: "SET_LEVEL", payload: "nomal" })}
+        >
+          보통
+        </Button>
+        <Button
+          onClick={() => dispatch({ type: "SET_LEVEL", payload: "hard" })}
+        >
+          어려움
+        </Button>
       </BtnBox>
-      <Button onClick={() => setScreen(1)}>확인</Button>
     </Container>
   );
 };

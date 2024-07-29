@@ -1,10 +1,11 @@
 import styled from "styled-components";
-import { useMatching } from "../hooks/useMatching";
-import Item from "./Item";
-import SelectLevel from "./SelectLevel";
-import Answer from "./Answer";
 
-const SectionContainer = styled.section`
+import SelectLevel from "./SelectLevel";
+import { useMatching } from "../hooks/useMatching";
+import StartGame from "./StartGame";
+import Button from "./common/Button";
+
+const MainContainer = styled.section`
   border: 1px solid black;
   margin: auto;
   max-width: 1440px;
@@ -17,13 +18,18 @@ const SectionContainer = styled.section`
 `;
 
 const MainSection = () => {
-  const { screen, level } = useMatching();
+  const {
+    state: { view },
+  } = useMatching();
   return (
-    <SectionContainer>
-      {screen === 0 && <SelectLevel />}
-      {screen === 1 && <Item ea={level} />}
-      {screen === 1 && <Answer />}
-    </SectionContainer>
+    <MainContainer>
+      <Button
+        name="테스트"
+        dispatchValue={{ type: "SET_VIEW", payload: "ready" }}
+      />
+      {view === "ready" && <SelectLevel />}
+      {view === "start" && <StartGame />}
+    </MainContainer>
   );
 };
 

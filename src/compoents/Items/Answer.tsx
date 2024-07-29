@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useMatching } from "../hooks/useMatching";
+import { useMatching } from "../../hooks/useMatching";
 
 const AnswerContainer = styled.div`
   display: flex;
