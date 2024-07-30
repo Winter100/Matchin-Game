@@ -6,7 +6,6 @@ import StartGame from "./StartGame";
 import Button from "./common/Button";
 
 const MainContainer = styled.section`
-  border: 1px solid black;
   margin: auto;
   max-width: 1440px;
   padding: 1rem;
@@ -19,14 +18,19 @@ const MainContainer = styled.section`
 
 const MainSection = () => {
   const {
-    state: { view },
+    state: { view, answerEa },
   } = useMatching();
   return (
     <MainContainer>
       <Button
-        name="테스트"
+        name="이전"
         dispatchValue={{ type: "SET_VIEW", payload: "ready" }}
       />
+      <Button
+        name="정답 확인"
+        dispatchValue={{ type: "ANSWER", payload: "" }}
+      />
+      {answerEa}
       {view === "ready" && <SelectLevel />}
       {view === "start" && <StartGame />}
     </MainContainer>

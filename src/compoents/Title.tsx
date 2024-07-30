@@ -2,7 +2,6 @@ import styled from "styled-components";
 
 const H1 = styled.h1`
   text-align: center;
-  border: 1px solid black;
 `;
 
 const Title = ({

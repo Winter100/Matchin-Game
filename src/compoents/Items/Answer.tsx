@@ -1,26 +1,21 @@
 import styled from "styled-components";
-import { useMatching } from "../../hooks/useMatching";
+import { Character, CharacterBox, ItemContainer } from "./Item";
 
-const AnswerContainer = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 1rem;
-`;
-const AnswerItem = styled.p`
-  width: 50px;
-  height: 50px;
+const ExtendedItemConainter = styled(ItemContainer)`
+  cursor: default;
+  user-select: none;
 `;
 
-const Answer = () => {
-  const { level } = useMatching();
-  const answerArr = [...Array(level).fill(null)];
+const Answer = ({ level }: { level: number }) => {
+  const answerArray = [...Array(level).keys()];
   return (
-    <AnswerContainer>
-      {answerArr.map((item, i) => (
-        <AnswerItem key={i + 30}>{i}</AnswerItem>
+    <ExtendedItemConainter>
+      {answerArray.map((_, i) => (
+        <CharacterBox key={`answer-${i}`}>
+          <Character>?</Character>
+        </CharacterBox>
       ))}
-    </AnswerContainer>
+    </ExtendedItemConainter>
   );
 };
 

@@ -1,9 +1,9 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
-import setLevel from "../../util/setLevel";
+import { useMatching } from "../../hooks/useMatching";
+import { customCharacter } from "../../constant/constant";
 
-const ItemContainer = styled.div`
-  border: 1px solid black;
+export const ItemContainer = styled.div`
   padding: 1rem;
   display: flex;
   align-items: center;
@@ -11,23 +11,37 @@ const ItemContainer = styled.div`
   gap: 1rem;
 `;
 
-const Character = styled.p`
+export const CharacterBox = styled.div`
   border: 1px solid black;
-  width: 50px;
-  height: 50px;
+  border-radius: 25%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100px;
+  height: 100px;
 `;
 
-const Item = ({ level = "nomal" }: { level: string }) => {
-  const [length, setLength] = useState(() => [
-    ...Array(setLevel(level)).keys(),
-  ]);
+export const Character = styled.p`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 80px;
+  height: 80px;
+  font-size: 2rem;
+`;
+
+const Item = ({ level }: { level: number }) => {
+  const { dispatch } = useMatching();
+  const [length, setLength] = useState(() => {
+    return customCharacter.slice(0, level);
+  });
   const dropItem = useRef(0);
 
   const onDragStart = (index: number) => {
     dropItem.current = index;
   };
 
-  const onDragOver = (e: React.DragEvent<HTMLParagraphElement>) => {
+  const onDragOver = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
   };
 
@@ -41,21 +55,32 @@ const Item = ({ level = "nomal" }: { level: string }) => {
     newArr.splice(dropItem.current, 1, item2);
     newArr.splice(dropIndex, 1, item1);
 
+    dispatch({
+      type: "SET_USER_ANSWER",
+      payload: newArr.map((item) => item.i),
+    });
     setLength(newArr);
   };
+
+  useEffect(() => {
+    dispatch({
+      type: "SET_USER_ANSWER",
+      payload: length.map((item) => item.i),
+    });
+  }, []);
 
   return (
     <ItemContainer>
       {length.map((item, i) => (
-        <Character
-          key={i}
+        <CharacterBox
+          key={`items-${i}`}
           onDragStart={() => onDragStart(i)}
           onDragOver={onDragOver}
           onDrop={() => onDrop(i)}
           draggable
         >
-          {item}
-        </Character>
+          <Character>{item.character}</Character>
+        </CharacterBox>
       ))}
     </ItemContainer>
   );
