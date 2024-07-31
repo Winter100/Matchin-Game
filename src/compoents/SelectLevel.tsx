@@ -1,7 +1,11 @@
 import styled from "styled-components";
 import { useMatching } from "../hooks/useMatching";
 
-const Container = styled.div``;
+const Container = styled.div`
+  height: 80%;
+  padding-top: 3rem;
+  margin: auto;
+`;
 
 const BtnBox = styled.div`
   display: flex;
@@ -36,12 +40,17 @@ const SelectLevel = () => {
         <Button
           onClick={() => dispatch({ type: "SET_LEVEL", payload: "nomal" })}
         >
-          보통
+          쉬움
         </Button>
         <Button
           onClick={() => dispatch({ type: "SET_LEVEL", payload: "hard" })}
         >
           어려움
+        </Button>
+        <Button
+          onClick={() => dispatch({ type: "SET_LEVEL", payload: "hard" })}
+        >
+          매우 어려움
         </Button>
       </BtnBox>
     </Container>

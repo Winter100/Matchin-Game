@@ -3,11 +3,11 @@ import styled from "styled-components";
 import SelectLevel from "./SelectLevel";
 import { useMatching } from "../hooks/useMatching";
 import StartGame from "./StartGame";
-import Button from "./common/Button";
+import Result from "./Result";
 
 const MainContainer = styled.section`
-  margin: auto;
-  max-width: 1440px;
+  min-width: 1440px;
+  height: 90%;
   padding: 1rem;
   display: flex;
   flex-direction: column;
@@ -18,21 +18,13 @@ const MainContainer = styled.section`
 
 const MainSection = () => {
   const {
-    state: { view, answerEa },
+    state: { view },
   } = useMatching();
   return (
     <MainContainer>
-      <Button
-        name="이전"
-        dispatchValue={{ type: "SET_VIEW", payload: "ready" }}
-      />
-      <Button
-        name="정답 확인"
-        dispatchValue={{ type: "ANSWER", payload: "" }}
-      />
-      {answerEa}
       {view === "ready" && <SelectLevel />}
       {view === "start" && <StartGame />}
+      {view === "result" && <Result />}
     </MainContainer>
   );
 };

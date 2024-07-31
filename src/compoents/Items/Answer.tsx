@@ -1,21 +1,25 @@
 import styled from "styled-components";
 import { Character, CharacterBox, ItemContainer } from "./Item";
 
-const ExtendedItemConainter = styled(ItemContainer)`
+const ExtendedCharacterBoxConainter = styled(CharacterBox)`
   cursor: default;
   user-select: none;
+
+  &:hover {
+    background-color: white;
+  }
 `;
 
 const Answer = ({ level }: { level: number }) => {
   const answerArray = [...Array(level).keys()];
   return (
-    <ExtendedItemConainter>
+    <ItemContainer>
       {answerArray.map((_, i) => (
-        <CharacterBox key={`answer-${i}`}>
+        <ExtendedCharacterBoxConainter key={`answer-${i}`}>
           <Character>?</Character>
-        </CharacterBox>
+        </ExtendedCharacterBoxConainter>
       ))}
-    </ExtendedItemConainter>
+    </ItemContainer>
   );
 };
 

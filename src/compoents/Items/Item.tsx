@@ -19,6 +19,11 @@ export const CharacterBox = styled.div`
   justify-content: center;
   width: 100px;
   height: 100px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #fff0f0;
+  }
 `;
 
 export const Character = styled.p`

@@ -6,15 +6,16 @@ import setLevel from "../util/setLevel";
 export const matchingReducer = (
   state: MatchingState,
   action: MatchingAction<string | number[]>
-) => {
+): MatchingState => {
   switch (action.type) {
     case "SET_VIEW":
       return {
         ...state,
-        answerEa: 0,
+        numberOfCorrectAnswers: 0,
+        numberOfAttempts: 0,
         answer: [],
         userAnswer: [],
-        view: action.payload,
+        view: action.payload as string,
       };
     case "SET_LEVEL":
       return {
@@ -27,14 +28,19 @@ export const matchingReducer = (
     case "SET_USER_ANSWER":
       return {
         ...state,
-        userAnswer: action.payload,
+        userAnswer: action.payload as number[],
       };
 
-    case "ANSWER":
+    case "ANSWER": {
+      const attempts = state.numberOfAttempts + 1;
+      const correct = countMatchingIndices(state.answer, state.userAnswer);
       return {
         ...state,
-        answerEa: countMatchingIndices(state.answer, state.userAnswer),
+        view: correct === state.level ? "result" : state.view,
+        numberOfAttempts: attempts,
+        numberOfCorrectAnswers: correct,
       };
+    }
 
     default:
       return state;
