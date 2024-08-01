@@ -2,7 +2,8 @@ import styled from "styled-components";
 import { useMatching } from "../hooks/useMatching";
 
 const Container = styled.table`
-  width: 100%;
+  margin: auto;
+  width: 50rem;
   text-align: center;
   font-size: 2rem;
 `;
@@ -11,15 +12,16 @@ const Thead = styled.thead``;
 const Tbody = styled.tbody``;
 const Tr = styled.tr``;
 const Th = styled.th`
+  font-size: 1.2rem;
   text-align: left;
   padding: 8px;
   text-align: center;
 `;
 const Td = styled(Th)`
-  font-size: 1.5rem;
+  font-size: 1rem;
 `;
 
-const NumberOfAttempts = () => {
+const Score = () => {
   const {
     state: { numberOfAttempts, numberOfCorrectAnswers },
   } = useMatching();
@@ -42,4 +44,4 @@ const NumberOfAttempts = () => {
   );
 };
 
-export default NumberOfAttempts;
+export default Score;

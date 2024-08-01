@@ -12,34 +12,34 @@ export const ItemContainer = styled.div`
 `;
 
 export const CharacterBox = styled.div`
-  border: 1px solid black;
+  border: 1px solid gray;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
   border-radius: 25%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100px;
-  height: 100px;
-  cursor: pointer;
-
-  &:hover {
-    background-color: #fff0f0;
-  }
-`;
-
-export const Character = styled.p`
   display: flex;
   align-items: center;
   justify-content: center;
   width: 80px;
   height: 80px;
-  font-size: 2rem;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #d9d9d9;
+  }
+`;
+
+export const Character = styled.p`
+  margin: 0px;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
 `;
 
 const Item = ({ level }: { level: number }) => {
   const { dispatch } = useMatching();
-  const [length, setLength] = useState(() => {
-    return customCharacter.slice(0, level);
-  });
+  const [length, setLength] = useState(() => customCharacter.slice(0, level));
   const dropItem = useRef(0);
 
   const onDragStart = (index: number) => {
@@ -73,6 +73,11 @@ const Item = ({ level }: { level: number }) => {
       payload: length.map((item) => item.i),
     });
   }, []);
+
+  useEffect(() => {
+    const sliceItem = customCharacter.slice(0, level);
+    setLength(sliceItem);
+  }, [level]);
 
   return (
     <ItemContainer>

@@ -2,56 +2,53 @@ import styled from "styled-components";
 import { useMatching } from "../hooks/useMatching";
 
 const Container = styled.div`
-  height: 80%;
-  padding-top: 3rem;
-  margin: auto;
+  width: 100%;
+  margin-bottom: 1rem;
 `;
 
 const BtnBox = styled.div`
+  width: 100%;
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin-top: 1rem;
   gap: 1rem;
-`;
-
-const H2 = styled.h2`
-  margin: auto;
-  text-align: center;
 `;
 
 const Button = styled.button`
   cursor: pointer;
-  background-color: #ffe9e9;
-  border-radius: 25rem;
-  border: none;
-  width: 200px;
+  border-radius: 1rem;
+  border: 1px solid gray;
+  background-color: white;
+  width: 100px;
   height: 50px;
+  transition: background-color 0.2s ease;
+
+  &:hover {
+    background-color: black;
+    color: white;
+  }
 `;
+
+const DIFFICULTY = [
+  { type: "SET_LEVEL", payload: "nomal", value: "쉬움" },
+  { type: "SET_LEVEL", payload: "hard", value: "어려움" },
+  // { type: "SET_LEVEL", payload: "hell", value: "매우 어려움" },
+];
 
 const SelectLevel = () => {
   const { dispatch } = useMatching();
 
   return (
     <Container>
-      <H2>난이도를 선택해주세요</H2>
       <BtnBox>
-        <Button
-          onClick={() => dispatch({ type: "SET_LEVEL", payload: "nomal" })}
-        >
-          쉬움
-        </Button>
-        <Button
-          onClick={() => dispatch({ type: "SET_LEVEL", payload: "hard" })}
-        >
-          어려움
-        </Button>
-        <Button
-          onClick={() => dispatch({ type: "SET_LEVEL", payload: "hard" })}
-        >
-          매우 어려움
-        </Button>
+        {DIFFICULTY.map((item) => (
+          <Button
+            onClick={() => dispatch({ type: item.type, payload: item.payload })}
+            key={item.payload}
+          >
+            {item.value}
+          </Button>
+        ))}
       </BtnBox>
     </Container>
   );

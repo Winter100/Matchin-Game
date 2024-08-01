@@ -3,10 +3,9 @@ import { useMatching } from "../hooks/useMatching";
 import Item from "./Items/Item";
 import Answer from "./Items/Answer";
 import AnswerButton from "./AnswerButton";
+import Score from "./Score";
 
-const Container = styled.div`
-  height: 90%;
-`;
+const Container = styled.div``;
 
 const StartGame = () => {
   const {
@@ -15,6 +14,7 @@ const StartGame = () => {
 
   return (
     <Container>
+      <Score />
       <Item level={level} />
       <AnswerButton />
       <Answer level={level} />

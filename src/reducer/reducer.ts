@@ -20,6 +20,9 @@ export const matchingReducer = (
     case "SET_LEVEL":
       return {
         ...state,
+        numberOfCorrectAnswers: 0,
+        numberOfAttempts: 0,
+        userAnswer: [],
         view: "start",
         level: setLevel(action.payload as string),
         answer: generateShuffledArray(setLevel(action.payload as string)),

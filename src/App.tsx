@@ -1,23 +1,17 @@
 import styled from "styled-components";
 import Header from "./compoents/Header";
 import MainSection from "./compoents/Section";
-import MenuBox from "./compoents/MenuBox";
+import SelectLevel from "./compoents/SelectLevel";
 
 const Container = styled.div`
-  height: 90dvh;
-  margin: auto;
-  border: 1px solid black;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  height: 100%;
 `;
 
 export default function App() {
   return (
     <Container>
       <Header />
-      <MenuBox />
+      <SelectLevel />
       <MainSection />
     </Container>
   );
