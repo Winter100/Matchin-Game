@@ -3,7 +3,7 @@ import { useMatching } from "../hooks/useMatching";
 
 const Container = styled.div`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
 `;
@@ -20,7 +20,8 @@ const Result = () => {
   return (
     <Container>
       <div>
-        쉬움 난이도를 <Score>{numberOfAttempts}번</Score>만에 클리어 했습니다!
+        클리어까지
+        <Score> {numberOfAttempts}번 </Score>시도했습니다.
       </div>
     </Container>
   );

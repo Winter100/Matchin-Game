@@ -35,14 +35,19 @@ export const matchingReducer = (
       };
 
     case "ANSWER": {
-      const attempts = state.numberOfAttempts + 1;
-      const correct = countMatchingIndices(state.answer, state.userAnswer);
-      return {
-        ...state,
-        view: correct === state.level ? "result" : state.view,
-        numberOfAttempts: attempts,
-        numberOfCorrectAnswers: correct,
-      };
+      if (state.prevUserAnswer === state.userAnswer) {
+        return { ...state };
+      } else {
+        const attempts = state.numberOfAttempts + 1;
+        const correct = countMatchingIndices(state.answer, state.userAnswer);
+        return {
+          ...state,
+          prevUserAnswer: state.userAnswer,
+          view: correct === state.level ? "result" : state.view,
+          numberOfAttempts: attempts,
+          numberOfCorrectAnswers: correct,
+        };
+      }
     }
 
     default:

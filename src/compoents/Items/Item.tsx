@@ -11,9 +11,10 @@ export const ItemContainer = styled.div`
   gap: 1rem;
 `;
 
-export const CharacterBox = styled.div`
+export const CharacterBox = styled.div<{ $bgIndex: boolean }>`
   border: 1px solid gray;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+  background-color: ${(props) => (props.$bgIndex ? "#e0ffe3" : "")};
   border-radius: 25%;
   display: flex;
   align-items: center;
@@ -21,9 +22,11 @@ export const CharacterBox = styled.div`
   width: 80px;
   height: 80px;
   cursor: pointer;
+  transition: all 0.2s ease-in;
 
   &:hover {
     background-color: #d9d9d9;
+    transform: translateY(-5px);
   }
 `;
 
@@ -38,9 +41,13 @@ export const Character = styled.p`
 `;
 
 const Item = ({ level }: { level: number }) => {
-  const { dispatch } = useMatching();
+  const {
+    state: { answer },
+    dispatch,
+  } = useMatching();
   const [length, setLength] = useState(() => customCharacter.slice(0, level));
-  const dropItem = useRef(0);
+  const dropItem = useRef(80);
+  const endItem = useRef(80);
 
   const onDragStart = (index: number) => {
     dropItem.current = index;
@@ -52,6 +59,7 @@ const Item = ({ level }: { level: number }) => {
 
   const onDrop = (dropIndex: number) => {
     if (dropItem.current === dropIndex) return;
+    endItem.current = dropIndex;
 
     const newArr = [...length];
     const item1 = length[dropItem.current];
@@ -72,17 +80,23 @@ const Item = ({ level }: { level: number }) => {
       type: "SET_USER_ANSWER",
       payload: length.map((item) => item.i),
     });
-  }, []);
+  }, [answer, length, dispatch]);
 
   useEffect(() => {
     const sliceItem = customCharacter.slice(0, level);
     setLength(sliceItem);
   }, [level]);
 
+  useEffect(() => {
+    dropItem.current = 80;
+    endItem.current = 80;
+  }, [answer]);
+
   return (
     <ItemContainer>
       {length.map((item, i) => (
         <CharacterBox
+          $bgIndex={dropItem.current === i || endItem.current === i}
           key={`items-${i}`}
           onDragStart={() => onDragStart(i)}
           onDragOver={onDragOver}

@@ -5,4 +5,5 @@ export const initialValue = {
   answer: [] as number[],
   numberOfAttempts: 0,
   userAnswer: [] as number[],
+  prevUserAnswer: [] as number[],
 };
